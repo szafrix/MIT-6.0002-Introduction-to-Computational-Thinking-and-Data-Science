@@ -3,7 +3,7 @@
 # Name:
 # Collaborators:
 # Time:
-# Author: charz, cdenise
+# Author:
 
 #================================
 # Part B: Golden Eggs
@@ -22,9 +22,17 @@ def dp_make_weight(egg_weights, target_weight, memo = {}):
     
     Returns: int, smallest number of eggs needed to make target weight
     """
-    # TODO: Your code here
-    pass
-
+    best_result = target_weight
+    if target_weight == 0 or len(egg_weights) == 0:
+        result = 0
+    elif target_weight > 0:
+        for i in range((target_weight//egg_weights[0])+1):
+            result = i + dp_make_weight(egg_weights[1:], target_weight-i*egg_weights[0], memo)
+            if result < best_result:
+                best_result = result
+    return best_result
+            
+    
 # EXAMPLE TESTING CODE, feel free to add more if you'd like
 if __name__ == '__main__':
     egg_weights = (1, 5, 10, 25)
